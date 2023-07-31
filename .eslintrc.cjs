@@ -17,5 +17,6 @@ module.exports = {
     //quotes
     "jsx-quotes": [2, "prefer-single"],
     "react/prop-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
   },
 };
