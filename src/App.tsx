@@ -9,14 +9,17 @@ import { SectionType } from './types.d'
 import { TextArea } from './components/TextArea'
 import { useEffect } from 'react'
 import { translate } from './services/translate'
+import { useDebounce } from './hooks/useDebounce'
 
 function App () {
   const { loading, fromLanguage, toLanguage, interchangeLanguages, setFromLanguage, setToLanguage, fromText, result, setFromText, setResult } = useStore()
 
-  useEffect(() => {
-    if (fromText === '') return
+  const debouncedFromText = useDebounce(fromText)
 
-    translate({ fromLanguage, toLanguage, text: fromText }).then((res) => {
+  useEffect(() => {
+    if (debouncedFromText === '') return
+
+    translate({ fromLanguage, toLanguage, text: debouncedFromText }).then((res) => {
       if (res == null) return
       setResult(res)
     }).catch((err) => {
@@ -24,7 +27,7 @@ function App () {
       throw new Error(err.message)
     }
     )
-  }, [fromText, fromLanguage])
+  }, [debouncedFromText, fromLanguage])
 
   return (
 
