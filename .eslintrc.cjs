@@ -13,9 +13,10 @@ module.exports = {
   plugins: ["react"],
   rules: {
     "react/react-in-jsx-scope": "off",
-    indent: ["error", 2],
-    //quotes
     "jsx-quotes": [2, "prefer-single"],
     "react/prop-types": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "@typescript-eslint/indent": "error"
   },
 };

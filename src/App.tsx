@@ -1,34 +1,34 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Container, Col, Row, Button } from 'react-bootstrap'
+import { useStore } from './hooks/useStore'
+import { AUTO_LANGUAGE } from './consts'
+import { ArrowsIcon } from './components/Icons'
 
-function App() {
-  const [count, setCount] = useState(0)
+function App () {
+  const { fromLanguage, toLanguage, interchangeLanguages } = useStore()
 
   return (
-    <>
+
+    <Container fluid>
+      <Row>
+        <Col>
+          <h2>From</h2>
+          {fromLanguage}
+        </Col>
+        <Col>
+          <Button variant='link' disabled={fromLanguage === AUTO_LANGUAGE} onClick={interchangeLanguages }><ArrowsIcon/></Button>
+        </Col>
+        <Col>
+          <h2>To</h2>
+          {toLanguage}
+        </Col>
+      </Row>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>GOOGLE TRANSLATE</h1>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </Container>
+
   )
 }
 
