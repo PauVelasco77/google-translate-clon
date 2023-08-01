@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container, Col, Row, Button, Stack } from 'react-bootstrap'
 import { useStore } from './hooks/useStore'
 import { AUTO_LANGUAGE } from './consts'
-import { ArrowsIcon } from './components/Icons'
+import { ArrowsIcon, ClipboardIcon } from './components/Icons'
 import { LanguageSelector } from './components/LanguageSelector'
 import { SectionType } from './types.d'
 import { TextArea } from './components/TextArea'
@@ -13,6 +13,10 @@ import { useDebounce } from './hooks/useDebounce'
 
 function App () {
   const { loading, fromLanguage, toLanguage, interchangeLanguages, setFromLanguage, setToLanguage, fromText, result, setFromText, setResult } = useStore()
+
+  const handleClipboard = () => {
+    navigator.clipboard.writeText(result).catch((err) => { throw new Error(err.message) })
+  }
 
   const debouncedFromText = useDebounce(fromText)
 
@@ -60,12 +64,21 @@ function App () {
               type={ SectionType.To}
               value={ toLanguage }
             />
-            <TextArea
-              type={ SectionType.To }
-              loading={ loading}
-              value={ result}
-              onChange={ setResult }
-            />
+            <div style={{ position: 'relative' }}>
+              <TextArea
+                type={ SectionType.To }
+                loading={ loading}
+                value={ result}
+                onChange={ setResult }
+              />
+              <Button
+                variant='link'
+                onClick={ handleClipboard }
+                style={ { position: 'absolute', left: '0', bottom: '0' } }
+              >
+                <ClipboardIcon/>
+              </Button>
+            </div>
           </Stack>
         </Col>
       </Row>
