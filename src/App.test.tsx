@@ -1,7 +1,11 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import App from './App'
+
+vi.mock('./services/translate', () => ({
+  translate: async () => 'Hello World'
+}))
 
 describe('App', () => {
   it('should work', async () => {

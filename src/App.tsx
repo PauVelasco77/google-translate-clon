@@ -28,7 +28,6 @@ function App () {
   const debouncedFromText = useDebounce(fromText)
 
   useEffect(() => {
-    console.log('useEffect', fromLanguage)
     if (debouncedFromText === '') return
 
     translate({ fromLanguage, toLanguage, text: debouncedFromText }).then((res) => {
