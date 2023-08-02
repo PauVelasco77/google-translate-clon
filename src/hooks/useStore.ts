@@ -12,42 +12,62 @@ export const initialState: State = {
 
 export function reducer (state: State, action: Action) {
   const { type } = action
+  let newState: State
 
   switch (type) {
     case 'INTERCHANGE_LANGUAGES': {
       if (state.fromLanguage === AUTO_LANGUAGE) return state
 
-      const newState = {
+      const loading = state.fromText !== ''
+
+      newState = {
         ...state,
+        loading,
+        result: '',
         fromLanguage: state.toLanguage,
         toLanguage: state.fromLanguage
       }
       return newState
     }
-    case 'SET_FROM_LANGUAGE' : {
-      const newState = {
+    case 'SET_FROM_LANGUAGE': {
+      if (state.fromLanguage === action.payload) return state
+
+      const loading = state.fromText !== ''
+
+      newState = {
         ...state,
-        fromLanguage: action.payload
+        fromLanguage: action.payload,
+        loading,
+        result: ''
       }
       return newState
     }
     case 'SET_TO_LANGUAGE': {
-      const newState = {
+      if (state.toLanguage === action.payload) return state
+
+      const loading = state.fromText !== ''
+
+      newState = {
         ...state,
-        toLanguage: action.payload
+        toLanguage: action.payload,
+        loading,
+        result: ''
       }
       return newState
     }
     case 'SET_FROM_TEXT': {
-      const newState = {
+      const loading = action.payload !== ''
+
+      newState = {
         ...state,
-        loading: true,
-        fromText: action.payload
+        loading,
+        fromText: action.payload,
+        result: ''
       }
       return newState
     }
     case 'SET_RESULT': {
-      const newState = {
+      newState = {
         ...state,
         loading: false,
         result: action.payload

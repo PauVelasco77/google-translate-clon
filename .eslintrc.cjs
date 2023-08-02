@@ -17,6 +17,6 @@ module.exports = {
     "react/prop-types": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "indent": ["error", 2, { "SwitchCase": 1 }],
-    "@typescript-eslint/indent": "error"
+    "@typescript-eslint/indent": "error",
   },
 };
